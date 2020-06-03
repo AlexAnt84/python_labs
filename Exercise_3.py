@@ -177,3 +177,43 @@
 # print (average(10,10,10))
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#
+#Написать функцию Калькулятор: получает на вход 2 числа и
+#символ операции и возвращает результат. Реализовать простые
+#арифметические операции. Воспользоваться lambda-функциями
+#
+
+# def calculator (num_1,num_2,op):
+#   operations = {
+#     '+': lambda num_1,num_2: num_1+num_2,
+#     '-': lambda num_1,num_2: num_1-num_2,
+#     '*': lambda num_1,num_2: num_1*num_2,
+#     '/': lambda num_1,num_2: num_1/num_2
+#   }
+#   result = operations[op](num_1,num_2)
+#   return result
+
+# s = input("Введите выражение, например 2*2 \n")
+
+# sep = 0
+
+# if s.find('*') != -1:
+#   sep = s.find('*')
+# elif s.find('/') != -1:
+#   sep = s.find('/')
+# elif s.find('+') != -1:
+#   sep = s.find('+')
+# elif s.find('-') != -1:
+#   sep = s.find('-')
+# if sep==0:
+#   print("Ошибка в выражении")
+#   exit()
+
+# num_1 = int(s[0:sep:1])
+# num_2 = int(s[sep+1:len(s):1])
+# operation = s[sep]
+
+# print(calculator(num_1,num_2,operation))
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
