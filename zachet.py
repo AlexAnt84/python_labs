@@ -65,6 +65,11 @@ def fn_portscan(if_dict):
   open_ports = []
   closed_ports = []
 
+  #Создадим файлы с портами, а если они уже существуют - очистим их
+  open_ports_file = open("open_ports.txt","w",encoding="utf-8")
+  closed_ports_file = open("closed_ports.txt","w",encoding="utf-8")
+  open_ports_file.close()
+  closed_ports_file.close()
 
   for ip in ip_list:
     #Для каждого из айпи адресов в списке будет формироваться новый список портов
@@ -83,7 +88,7 @@ def fn_portscan(if_dict):
       else:
         open_ports.append(i) #Иначе - добавляем в список открытых
         mysock.close() #И закрываем соединение
-    
+
     #Добавим информацию о портах в файлы
     open_ports_file = open("open_ports.txt","a",encoding="utf-8")
     open_ports_file.writelines(f"IP-адрес: {ip}, порты: {open_ports} \n \n")
@@ -108,3 +113,33 @@ def fn_ipaccess(ip_list):
 
   return (up_list,down_list)
 
+#Если данный модуль является основным:
+if __name__ == "__main__":
+    import tabulate
+
+    print(tabulate.tabulate(fn_ipaddresses(),headers='keys',tablefmt='grid',stralign='center'))
+
+    #Выводим сообщение о том, что выполняется сканирование, чтобы пользователь не пугался
+    print("Выполняем сканирование портов...")
+    fn_portscan(fn_ipaddresses())
+    print("Данные о портах находятся в файлах open_ports.txt и closed_ports.txt")
+    #Попробуем открыть файлы в потоке, и считать количество строк
+    try:
+      with open("open_ports.txt") as fl:
+        op_count = len(fl.readlines())
+      with open("closed_ports.txt") as fl:
+        cp_count = len(fl.readlines())
+    except:
+      print("Что-то пошло не так")
+    else:
+      print(f"В файле с открытыми портами {op_count} строк, в файле с закрытыми портами {cp_count} строк.")
+    
+    #Так как в ТЗ не указано, какой список проверять, возьмем этот
+    ip_test_list = ['8.8.8.8','127.0.0.1','10.0.0.1','192.168.0.1']
+    
+    print("Проверяем доступность IP-адресов...")
+    result_ip_list = fn_ipaccess(ip_test_list)
+    #Для корректного отображения таблицы создадим словарь
+    print(tabulate.tabulate({"Доступные": result_ip_list[0],"Недоступные": result_ip_list[1]},headers='keys',tablefmt='grid',stralign='center'))
+
+  
