@@ -5,7 +5,7 @@ def fn_translate_SubnetToPrefix(netmask):
   """ Дополнительная функция, которая
   преобразует маску подсети ipv4 в сетевой префикс """
   
-  #Разделяем айпишник список из октетов
+  #Разделяем айпишник в список из октетов
   binary_presentation = netmask.split('.')
 
   #Каждый из октетов преобразуем в целое число
@@ -18,7 +18,7 @@ def fn_translate_SubnetToPrefix(netmask):
   #Склеиваем все обратно
   binary_presentation = ''.join(binary_presentation)
 
-  #Считаем количество едениц, и получаем сетевой префикс
+  #Считаем количество единиц, и получаем сетевой префикс
   net_prefix = binary_presentation.count('1')
 
   return net_prefix
@@ -91,15 +91,15 @@ def fn_portscan(if_dict):
 
     #Добавим информацию о портах в файлы
     open_ports_file = open("open_ports.txt","a",encoding="utf-8")
-    open_ports_file.writelines(f"IP-адрес: {ip}, порты: {open_ports} \n \n")
+    open_ports_file.writelines(f"IP-адрес: {ip}, порты: {open_ports} \n")
     open_ports_file.close()
 
     closed_ports_file = open("closed_ports.txt","a",encoding="utf-8")
-    closed_ports_file.writelines(f"IP-адрес: {ip}, порты: {closed_ports} \n \n")
+    closed_ports_file.writelines(f"IP-адрес: {ip}, порты: {closed_ports} \n")
     closed_ports_file.close()
 
 def fn_ipaccess(ip_list):
-  #Создадим списки лоступных и недоступных адресов
+  #Создадим списки доступных и недоступных адресов
   up_list = []
   down_list = []
 
@@ -139,6 +139,7 @@ if __name__ == "__main__":
     
     print("Проверяем доступность IP-адресов...")
     result_ip_list = fn_ipaccess(ip_test_list)
+
     #Для корректного отображения таблицы создадим словарь
     print(tabulate.tabulate({"Доступные": result_ip_list[0],"Недоступные": result_ip_list[1]},headers='keys',tablefmt='grid',stralign='center'))
 
