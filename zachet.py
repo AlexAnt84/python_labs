@@ -1,4 +1,5 @@
 import netifaces, socket
+from pythonping import ping
 
 def fn_translate_SubnetToPrefix(netmask):
   """ Дополнительная функция, которая
@@ -91,4 +92,19 @@ def fn_portscan(if_dict):
     closed_ports_file = open("closed_ports.txt","a",encoding="utf-8")
     closed_ports_file.writelines(f"IP-адрес: {ip}, порты: {closed_ports} \n \n")
     closed_ports_file.close()
+
+def fn_ipaccess(ip_list):
+  #Создадим списки лоступных и недоступных адресов
+  up_list = []
+  down_list = []
+
+  #Для каждого IP из списка на проверку (аргумента функции) попробуем получить ответ
+  for ip in ip_list:
+    response = ping(ip, size=40, count=4)
+    if response.success() == True: #Если ICMP-запрос прошел успешно - добавляем IP в список доступных адресов
+      up_list.append(ip)
+    else:
+      down_list.append(ip) #Иначе - в список недоступных
+
+  return (up_list,down_list)
 
