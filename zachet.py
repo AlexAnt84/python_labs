@@ -82,7 +82,7 @@ def fn_portscan(if_dict):
       mysock.settimeout(0.5)
 
       try:
-        my_sock.connect((ip,i))
+        mysock.connect((ip,i))
       except:
         closed_ports.append(i) #Если порт закрыт - добавляем в список закрытых
       else:
